@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% set active_page="user" %}
+{% block title %}
+CIRR ADMINISTRATION
+{% endblock %}
+
+{% block admin_body_content %}
+
+<form method="GET">
+    <div class="container container-box mt-3 p-4">
+        <div class="row mb-2">
+            {{form.name.label}}
+            {{form.name(class="col-md-6 col-11 form-control form-control-sm ml-3")}}
+        </div>
+        {{form.submit(class="btn btn-info col-md-1 col-12")}}
+        <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <div class="feedback">{{message}}</div>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</form>
+<form method="POST">
+    <div class="container container-box mt-3 pt-3 pb-4">
+        <div class="row">
+            <div class="col-md-12 col-12">
+                <h4 class="heading" style="display:inline;">Users</h4>
+                <hr>
+                {% for u in user %}
+                <div class="form-check">
+                    <input class="form-check-input userCheckbox" id="{{u.username}}" type="checkbox"
+                        value="{{u.username}}" name="usercheckbox">
+                    <label class="form-check-label" for="{{u.username}}">
+                        <a href="{{ url_for('main.admin_edit_user_profile',username=u.username) }}">{{u.username}}</a>
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row mt-4 pl-3 pr-3">   
+            {% if user %}
+            <button type="button" class="btn btn-info btn-danger deleteUser col-md-1 col-12 mr-4 mb-3" data-toggle="modal" data-target=".bd-example-modal">Delete</button>
+            <a class="btn btn-info col-md-1 col-12 mb-3" href="{{ url_for('main.admin_create_user')}}">Create</a>
+            <div class="modal fade bd-example-modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h6 class="deleteUserText1">Do you really want to delete the selected users?</h6>
+                            <h6 class="deleteUserText2">You have not selected any User.</h6>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info modalYes">Yes</button>
+                            <button type="button" class="btn btn-info modalNo" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-info modalOkay" data-dismiss="modal">Okay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</form>
+{% endblock %}

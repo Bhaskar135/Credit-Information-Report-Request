@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% set active_page="profile" %}
+{% block title %}
+Profile
+{% endblock %}
+
+{% block admin_body_content %}
+<div class="container mt-3 p-3 ">
+    <div class="row">
+        <div class="col-md-3 col-12"></div>
+        <div class="col-md-6 col-12 container-box p-4">
+            <h4 class="heading">Profile</h4>
+            <div>
+                <label for="name" class="label">Name</label>
+                <span id="name">{% if admin.name %}{{ admin.name }}{% endif %}</span>
+            </div>
+            <div>
+                <label for="username" class="label">Username</label>
+                <span id="username">{% if admin.username %}{{ admin.username }}{% endif %}</span>
+            </div>
+            <div>
+                <label for="email" class="label">Email</label>
+                <span id="email">{% if admin.username %}{{ admin.email }}{% endif %}</span>
+            </div>
+            <div>
+                <label for="role" class="label">Role</label>
+                <span id="role">{% if admin.role %}{{ admin.role.name }}{% endif %}</span>
+            </div>
+            <div>
+                <label for="loc" class="label">Location</label>
+                <span id="loc">{% if admin.location %}{{ admin.location }}{% endif %}</span>
+            </div>
+            {% if admin == current_user %}
+            <a class="btn btn-info col-md-2 col-12" href="{{url_for('main.edit_profile_admin')}}">Edit</a>
+            {% endif %}
+            <div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <div class="feedback">{{message}}</div>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

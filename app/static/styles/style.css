@@ -1,0 +1,30 @@
+@import url('color.css');
+
+/* positions */
+
+.pagination-bar{
+    position:absolute;
+    left:45%;
+}
+.sub-heading{
+    text-decoration: underline;
+}
+.profile-content{
+    border-radius: 3px;
+}
+.right-box{
+    height:100vh;
+    overflow:auto;
+}
+.delete-user-heading{
+    display:inline;
+}
+.user-request-table{
+    overflow:auto;
+}
+.auth-box{
+    height:100vh;
+}
+.label{
+    width:150px;
+}

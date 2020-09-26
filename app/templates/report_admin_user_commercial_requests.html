@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block title %}
+    Commercial Requests
+{% endblock %}
+{% block report_admin_body_content %}
+
+<div class="container container-box mt-4 mb-4 p-4">
+    <form method="post" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+        <div class="row mb-4">
+            <div class="col-md-12 col-12">
+                <span><a href="{{url_for('main.report_admin_pdf_commercial_request',username=username,request_id=user_request.id)}}"
+                        target="_blank">Click here</a> to download the details of the request in pdf format.</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-12">
+                <h4 class="heading">Request by {{username}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="name">Name of the Unit</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="name">{{user_request.name_of_unit}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="dob">Constitution Type</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="dob">{{user_request.constitution_type}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="loan">Class of Activity</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="loan">{{user_request.class_of_activity}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="gender">PAN No</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="gender">{{user_request.pan_no}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="aadhaar">Registered Office Address</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="aadhaar">{{user_request.reg_office_address}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="passport">State</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="passport">{{user_request.state}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="driving_lic">City</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="driving_lic">{{user_request.city}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="voter">PIN Code</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="voter">{{user_request.pin_code}}</span>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="address">Enquiry Purpose</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="address">{{user_request.enquiry_purpose}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="passport">Member Reference No.</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="passport">{{user_request.member_ref_no}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="state">Loan Amount applied</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="state">{{user_request.loan_amount}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="passport">Enquiry Type</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="passport">{{user_request.enquiry_type}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="request-time">Request date</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="request-time">{{user_request.request_date.strftime('%d/%m/%Y')}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="file-name4">File name</label>
+            </div>
+            <div class="col-md-8 col-12">
+                {% if commercial_file.uploaded_file %}
+                <span id="file-name4"><a href="{{url_for('static',filename='uploads/'+commercial_file.uploaded_file)}}"
+                        target="_blank">{{commercial_file.uploaded_file}}</a></span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-12">
+                <label for="response-time">Uploaded time</label>
+            </div>
+            <div class="col-md-8 col-12">
+                <span id="response-time">{{commercial_file.uploaded_time}}</span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-3 col-12">
+                <label for="inputFile">{{form.report.label}}</label>
+            </div>
+            <div class="col-md-8 col-12">
+                {{form.report(id="inputFile")}}
+            </div>
+        </div>
+
+            {{form.submit(class="btn btn-info col-md-1 col-12 mb-3")}}
+            {{form.reject(class="btn btn-info col-md-1 col-12 mb-3")}}
+
+        <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <div class="feedback">{{message}}</div>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </form>
+</div>
+<div class="container container-box mb-4">
+    <form method="post">
+        {{form2.hidden_tag()}}
+        <div class="row mt-2">
+            <div class="col-md-2 col-12">{{form2.remark.label}}</div>
+            <div class="col-md-10 col-12">{{form2.remark(class="form-control")}}</div>
+        </div>
+        {{form2.return_req(class="col-md-1 col-12 btn btn-info mt-3 mb-3")}}
+
+    </form>
+</div>
+{% endblock %}

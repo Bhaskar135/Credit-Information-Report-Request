@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% set active_page="user-home" or "user-requests" %}
+{% import "pagination.html" as macros %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block user_body_content %}
+
+<div class="container mt-3 pl-4 pr-4 pb-4 container-box">
+    <form method="GET">
+        <div class="row pt-3">
+            <div class="col-md-3 col-12">
+                {{form1.search_name.label}}
+                <div>{{form1.search_name(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12">
+                {{form1.from_date.label}}
+                <div>{{form1.from_date(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12">
+                {{form1.to_date.label}}
+                <div>{{form1.to_date(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12">
+                {{form1.status.label}}
+                <div>{{form1.status(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+        </div>
+        {{form1.submit(class="btn btn-info col-md-1 col-12")}}
+    </form>
+</div>
+<div class="container mt-4 mb-4 pb-2 container-box">
+    <div class="row">
+        <div class="col-md-12 col-12 ml-2 mr-2">
+            <h4 class="heading mt-3">Consumer requests</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover mb-4" style="font-size: medium; text-align: center;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sl No.</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Pan No.</th>
+                            <th scope="col">Requested date</th>
+                            <th scope="col">Loan amount</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                    </thead>
+                    {% if consumer_requests %}
+                    <tbody>
+                        {% for request in consumer_requests %}
+                        {% if loop.index%2==0 %}
+                        <tr class="tr-even">
+                            <td scope="row">{{loop.index}}</td>
+                            <td>{{request.name}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.loan_amount}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a href="{{url_for('main.consumer_request_detail',request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td scope="row">{{loop.index}}</td>
+                            <td>{{request.name}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.loan_amount}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a href="{{url_for('main.consumer_request_detail',request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tbody>
+                        {% for request in consumer_req %}
+                        {% if loop.index%2==0 %}
+                        <tr class="tr-even">
+                            <td scope="row">{{((page*15)-15)+loop.index}}</td>
+                            <td>{{request.name}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.loan_amount}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a href="{{url_for('main.consumer_request_detail',request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td scope="row">{{((page*15)-15)+loop.index}}</td>
+                            <td>{{request.name}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.loan_amount}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a href="{{url_for('main.consumer_request_detail',request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                    {% endif %}
+
+                </table>
+
+            </div>
+            {% if consumer_requests%}
+            {% else %}
+            <div class="pagination-bar mt-4">
+                {{ macros.pagination_widget(pagination, 'main.home') }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

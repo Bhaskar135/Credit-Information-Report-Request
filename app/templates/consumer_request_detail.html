@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% block title %}
+    Request Details
+{% endblock %}
+{% block user_body_content %}
+<div class="container container-box mt-4 mb-4 p-4">
+   <div class="row mb-4">
+      <div class="col-md-12 col-12">
+         <span><a href="{{url_for('main.pdf_consumer_request',request_id=consumer_request_id.id)}}" target="_blank">Click here</a> to download the details of the request in pdf format.</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="loan">Loan amount</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="loan">{{consumer_request_id.loan_amount}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="loan">Purpose</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="loan">{{consumer_request_id.purpose}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="name">Name</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="name">{{consumer_request_id.name}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="gender">Gender</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="gender">{{consumer_request_id.gender}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="dob">Date of birth</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="dob">{{consumer_request_id.dob.strftime('%d/%m/%Y')}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="pan">PAN No</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="pan">{{consumer_request_id.pan_no}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="aadhaar">Aadhaar No</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="aadhaar">{{consumer_request_id.aadhaar_no}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="voter">Voter ID</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="voter">{{consumer_request_id.voter_id}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="passport">Passport</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="passport">{{consumer_request_id.passport}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="driving_lic">Driving license</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="driving_lic">{{consumer_request_id.driving_license_no}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="address">Address</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="address">{{consumer_request_id.address}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="state">State</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="state">{{consumer_request_id.state}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="pin">Pin code</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="pin">{{consumer_request_id.pin_code}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="address">Address Category</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="address">{{consumer_request_id.address_category}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="request-time">Request date</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="request-time">{{consumer_request_id.request_date.strftime('%d/%m/%Y')}}</span>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-3 col-12">
+         <label for="consumer-report">Download file</label>
+      </div>
+      <div class="col-md-8 col-12">
+         <span id="consumer-report">
+            {% if consumer_report_id.uploaded_file %}
+            <a href="{{url_for('static',filename='uploads/'+consumer_report_id.uploaded_file )}}" target="_blank">
+               click here to download
+            </a>
+            {% endif %}
+         </span>
+      </div>
+   </div>
+   {% if consumer_request_id.status=="Pending" or consumer_request_id.status=="Returned"%}
+      <a href="{{url_for('main.consumer_form_edit',username=user.username,request_id=consumer_request_id.id)}}" class="btn btn-info col-md-1 col-12 mt-2">Edit</a>
+
+   {% endif %}
+   {% if consumer_request_id.remark %}
+   <div class="alert alert-info mt-3" role="alert">
+      <div>
+         Remark : {{consumer_request_id.remark}}
+      </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+
+
+
+

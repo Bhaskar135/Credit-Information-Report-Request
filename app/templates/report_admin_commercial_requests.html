@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% import "pagination.html" as macros %}
+{% set active_page="report_admin_home" %}
+{% block title %}
+Commercial Requests
+{% endblock %}
+
+{% block report_admin_body_content %}
+<form method="GET">
+    <div class="container mt-3 pl-4 pr-4 pb-4 container-box">
+        <div class="row pt-3">
+            <div class="col-md-3 col-12">
+                {{form.username.label}}
+                <div>{{form.username(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12">
+                {{form.unit_name.label}}
+                <div>{{form.unit_name(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12">
+                {{form.pan_no.label}}
+                <div>{{form.pan_no(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12">
+                {{form.from_date.label}}
+                <div>{{form.from_date(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12">
+                {{form.to_date.label}}
+                <div>{{form.to_date(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12">
+                {{form.status.label}}
+                <div>{{form.status(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+        </div>
+        {{form.submit(class="btn btn-info col-md-1 col-11")}}
+    </div>
+</form>
+
+<div class="container mt-4 mb-4 pb-2 container-box">
+    <div class="row">
+        <div class="col-md-12 col-12 ml-2 mr-2">
+            <h4 class="heading mt-3">Commercial requests</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover mb-4" style="font-size: medium; text-align: center;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sl No.</th>
+                            <th scope="col">Name of Unit</th>
+                            <th scope="col">Pan No.</th>
+                            <th scope="col">Requested date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                    </thead>
+                    {% if commercial_requests %}
+                    <tbody>
+                        {% for request in commercial_requests %}
+                        {% if loop.index%2==0 %}
+                        <tr class="tr-even">
+                            <td scope="row">{{loop.index}}</td>
+                            <td>{{request.name_of_unit}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a href="{{url_for('main.report_admin_commercial_request_detail',username=request.user.username, request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td scope="row">{{loop.index}}</td>
+                            <td>{{request.name_of_unit}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a href="{{url_for('main.report_admin_commercial_request_detail',username=request.user.username, request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tbody>
+                        {% for request in commercial_req %}
+                        {% if loop.index%2==0 %}
+                        <tr class="tr-even">
+                            <td scope="row">{{((page*15)-15)+loop.index}}</td>
+                            <td>{{request.name_of_unit}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a href="{{url_for('main.report_admin_commercial_request_detail',username=request.user.username, request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td scope="row">{{((page*15)-15)+loop.index}}</td>
+                            <td>{{request.name_of_unit}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a href="{{url_for('main.report_admin_commercial_request_detail',username=request.user.username, request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                    {% endif %}
+                </table>
+            </div>
+            {% if commercial_requests %}
+            {% else %}
+            <div class="pagination-bar mt-4">
+                {{ macros.pagination_widget(pagination, 'main.report_admin_commercial_requests') }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

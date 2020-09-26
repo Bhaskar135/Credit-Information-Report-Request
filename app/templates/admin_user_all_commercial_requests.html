@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% import "pagination.html" as macros %}
+
+{% block title %}
+Commercial Requests
+{% endblock %}
+
+{% block admin_body_content %}
+<div class="container container-box mt-4 mb-4 p-4">
+    <div class="row user-request-table">
+        <div class="col-md-12 col-12">
+            <h4 class="heading">Commercial Requests</h4>
+            <hr>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover mb-4" style="font-size: medium; text-align: center;">
+                <thead>
+                    <tr>
+                        <th scope="col">Sl No.</th>
+                        <th scope="col">Name of Unit</th>
+                        <th scope="col">Pan No.</th>
+                        <th scope="col">Requested date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in user_commercial_request %}
+                    {% if loop.index%2==0 %}
+                    <tr class="tr-even">
+                        <td scope="row">{{loop.index}}</td>
+                        <td>{{request.name_of_unit}}</td>
+                        <td>{{request.pan_no}}</td>
+                        <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                        <td>{{request.status}}</td>
+                        <td><a
+                                href="{{url_for('main.user_commercial_request_detail',username=request.user.username, request_id=request.id)}}">Click
+                                here</a></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td scope="row">{{loop.index}}</td>
+                        <td>{{request.name_of_unit}}</td>
+                        <td>{{request.pan_no}}</td>
+                        <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                        <td>{{request.status}}</td>
+                        <td><a
+                                href="{{url_for('main.user_commercial_request_detail',username=request.user.username, request_id=request.id)}}">Click
+                                here</a></td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="pagination-bar m-4">
+    {{ macros.pagination_widget(pagination,'.admin_user_consumer_request',username=username) }}
+</div>
+{% endblock %}

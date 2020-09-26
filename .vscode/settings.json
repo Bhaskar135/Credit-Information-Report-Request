@@ -1,0 +1,4 @@
+{
+    "python.linting.pylintArgs":["--load-pugins","pylint_flask"],
+    "python.pythonPath": "venv/bin/python3"
+}

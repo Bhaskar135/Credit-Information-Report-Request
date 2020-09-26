@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block title %}
+    Commercial Request
+{% endblock %}
+{% block user_body_content %}
+<div class="container container-box mt-4 mb-4 p-4">
+    <div class="row mb-4">
+        <div class="col-md-12 col-12">
+           <span><a href="{{url_for('main.pdf_commercial_request',request_id=commercial_request_id.id)}}" target="_blank">Click here</a> to download the details of the request in pdf format.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="name">Name of the Unit</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="name">{{commercial_request_id.name_of_unit}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="dob">Constitution Type</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="dob">{{commercial_request_id.constitution_type}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="loan">Class of Activity</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="loan">{{commercial_request_id.class_of_activity}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="gender">PAN No</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="gender">{{commercial_request_id.pan_no}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="aadhaar">Registered Office Address</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="aadhaar">{{commercial_request_id.reg_office_address}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="passport">State</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="passport">{{commercial_request_id.state}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="driving_lic">City</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="driving_lic">{{commercial_request_id.city}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="voter">PIN Code</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="voter">{{commercial_request_id.pin_code}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="address">Enquiry Purpose</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="address">{{commercial_request_id.enquiry_purpose}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="address">Member Reference No.</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="address">{{commercial_request_id.member_ref_no}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="state">Loan Amount applied</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="state">{{commercial_request_id.loan_amount}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="address">Enquiry Type</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="address">{{commercial_request_id.enquiry_type}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="pin">Request date</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="pin">{{commercial_request_id.request_date.strftime('%d/%m/%Y')}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="commercial-report">Download file</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="commercial-report">
+                {% if commercial_report_id.uploaded_file %}
+                <a href="{{url_for('static',filename='uploads/'+commercial_report_id.uploaded_file )}}" target="_blank">
+                    click here to download
+                </a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <label for="response_time">Uploaded time</label>
+        </div>
+        <div class="col-md-8 col-12">
+            <span id="response_time">{{commercial_report_id.uploaded_time}}</span>
+        </div>
+    </div>
+    {% if commercial_request_id.status=="Pending" or commercial_request_id.status=="Return"%}
+       <a href="{{url_for('main.commercial_form_edit',username=user.username,request_id=commercial_request_id.id)}}" class="col-md-1 col-12 btn btn-info mt-2">Edit</a>
+    {% endif %}
+    {% if commercial_request_id.remark %}
+    <div class="alert alert-info mt-3" role="alert">
+       <div>
+          Remark : {{commercial_request_id.remark}}
+       </div>
+     </div>
+     {% endif %}
+ </div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% import "pagination.html" as macros %}
+
+{% block title %}
+Consumer Requests
+{% endblock %}
+
+{% block admin_body_content %}
+<div class="container container-box mt-4 mb-4 p-4">
+    <div class="row user-request-table">
+        <div class="col-md-12 col-12">
+            <h4 class="heading">Consumer Requests</h4>
+            <hr>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" style="text-align: center;">
+                <thead>
+                    <tr>
+                        <th scope="col">Sl No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Pan No.</th>
+                        <th scope="col">Requested date</th>
+                        <th scope="col">Loan amount</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in user_consumer_request %}
+                    {% if loop.index%2==0 %}
+                    <tr class="tr-even">
+                        <td scope="row">{{(pagination.page-1)*15+loop.index}}</td>
+                        <td>{{request.name}}</td>
+                        <td>{{request.pan_no}}</td>
+                        <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                        <td>{{request.loan_amount}}</td>
+                        <td>{{request.status}}</td>
+                        <td><a
+                                href="{{ url_for('main.user_consumer_request_detail',username=username, request_id=request.id)}}">Click
+                                here</a></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td scope="row">{{(pagination.page-1)*15+loop.index}}</td>
+                        <td>{{request.name}}</td>
+                        <td>{{request.pan_no}}</td>
+                        <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                        <td>{{request.loan_amount}}</td>
+                        <td>{{request.status}}</td>
+                        <td><a
+                                href="{{ url_for('main.user_consumer_request_detail',username=username, request_id=request.id)}}">Click
+                                here</a></td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="pagination-bar m-4">
+    {{ macros.pagination_widget(pagination,'.admin_user_consumer_request',username=username) }}
+</div>
+{% endblock %}

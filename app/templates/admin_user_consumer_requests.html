@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% block title %}
+    Consumer Requests
+{% endblock %}
+{% block admin_body_content %}
+
+<div class="container container-box mt-4 mb-4 p-4">
+   <form method="post" enctype="multipart/form-data">
+      {{form.hidden_tag()}}
+      <div class="row mb-4">
+         <div class="col-md-12 col-12">
+            <span><a href="{{url_for('main.admin_pdf_consumer_request',username=username,request_id=user_request.id)}}"
+                  target="_blank">Click here</a> to download the details of the request in pdf format.</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-12 col-12">
+            <h4 class="heading">Request by {{username}}</h4>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="loan">Loan amount</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="loan">{{user_request.loan_amount}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="loan">Purpose</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="loan">{{user_request.purpose}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="name">Name</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="name">{{user_request.name}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="dob">Date of birth</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="dob">{{user_request.dob.strftime('%d/%m/%Y')}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="gender">Gender</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="gender">{{user_request.gender}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="pan">PAN No</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="pan">{{user_request.pan_no}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="aadhaar">Aadhaar No</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="aadhaar">{{user_request.aadhaar_no}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="voter">Voter ID</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="voter">{{user_request.voter_id}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="passport">Passport</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="passport">{{user_request.passport}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="driving_lic">Driving license</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="driving_lic">{{user_request.driving_license_no}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="address">Address</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="address">{{user_request.address}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="state">State</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="state">{{user_request.state}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="pin">Pin code</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="pin">{{user_request.pin_code}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="pin">Address Category</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="pin">{{user_request.address_category}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="request-time">Request date</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="request-time">{{user_request.request_date.strftime('%d/%m/%Y')}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="file-name1">File name</label>
+         </div>
+         <div class="col-md-8 col-12">
+            {% if consumer_file.uploaded_file %}
+            <span id="file-name1"><a href="{{url_for('static',filename='uploads/'+consumer_file.uploaded_file)}}"
+                  target="_blank">{{consumer_file.uploaded_file}}</a></span>
+            {% endif %}
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="response-time">Uploaded time</label>
+         </div>
+         <div class="col-md-8 col-12">
+            <span id="response-time">{{consumer_file.uploaded_time}}</span>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-3 col-12">
+            <label for="inputFile">{{form.report.label}}</label>
+         </div>
+         <div class="col-md-8 col-12">
+            {{form.report(id="inputFile")}}
+         </div>
+      </div>
+      {{form.submit(class="btn btn-info col-md-1 col-12 mt-2 submit", value="submit")}}
+      {{form.reject(class="btn btn-info col-md-1 col-12 mt-2 submit", value="reject")}}
+      <div>
+         {% with messages = get_flashed_messages() %}
+         {% if messages %}
+         <ul>
+            {% for message in messages %}
+               <div class="feedback">{{message}}</div>
+            {% endfor %}
+         </ul>
+         {% endif %}
+         {% endwith %}
+      </div>
+   </form>
+</div>
+<div class="container container-box mb-4">
+   <form method="post">
+      {{form2.hidden_tag()}}
+      <div class="row mt-2 mb-3">
+         <div class="col-md-2 col-12">{{form2.remark.label}}</div>
+         <div class="col-md-10 col-12">{{form2.remark(class="form-control")}}</div>
+      </div>
+         {{form2.return_req(class="col-md-1 col-12 btn btn-info mb-3")}}
+
+   </form>
+</div>
+{% endblock %}

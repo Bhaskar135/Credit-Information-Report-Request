@@ -1,0 +1,127 @@
+<div class="heading">
+    <b>NEDFi-CIRR</b>
+</div>
+
+<div class="outer-box odd">
+    
+    <h3 style="margin-left: 35px;">Consumer request</h3>
+    
+    <div class="inner-box">
+        <span>Request by</span>
+    </div>
+    <div class="inner-box">
+        <span>{{user.username}}</span>
+    </div>
+</div>
+<div class="outer-box">
+    <div class="inner-box">
+        <label for="name">Name</label>
+    </div>
+    <div class="inner-box">
+        <span id="name">{{consumer_request.name}}</span>
+    </div>
+</div>
+<div class="outer-box odd">
+    <div class="inner-box">
+        <label for="gender">Gender</label>
+    </div>
+    <div class="inner-box">
+        <span id="gender">{{consumer_request.gender}}</span>
+    </div>
+</div>
+<div class="outer-box">
+    <div class="inner-box">
+        <label for="dob">Date of birth</label>
+    </div>
+    <div class="inner-box">
+        <span id="dob">{{consumer_request.dob}}</span>
+    </div>
+</div>
+<div class="outer-box odd">
+    <div class="inner-box">
+        <label for="loan">Loan amount</label>
+    </div>
+    <div class="inner-box">
+        <span id="loan">{{consumer_request.loan_amount}}</span>
+    </div>
+</div>
+<div class="outer-box">
+    <div class="inner-box">
+        <label for="pan">PAN No</label>
+    </div>
+    <div class="inner-box">
+        <span id="pan">{{consumer_request.pan_no}}</span>
+    </div>
+</div>
+{% if consumer_request.aadhaar_no %}
+<div class="outer-box odd">
+    <div class="inner-box">
+        <label for="aadhaar">Aadhaar No</label>
+    </div>
+    <div class="inner-box">
+        <span id="aadhaar">{{consumer_request.aadhaar_no}}</span>
+    </div>
+</div>
+{% endif %}
+{% if consumer_request.voter_id %}
+<div class="outer-box">
+    <div class="inner-box">
+        <label for="voter">Voter ID</label>
+    </div>
+    <div class="inner-box">
+        <span id="voter">{{consumer_request.voter_id}}</span>
+    </div>
+</div>
+{% endif %}
+{% if consumer_request.passport %}
+<div class="outer-box odd">
+    <div class="inner-box">
+        <label for="passport">Passport</label>
+    </div>
+    <div class="inner-box">
+        <span id="passport">{{consumer_request.passport}}</span>
+    </div>
+</div>
+{% endif %}
+{% if consumer_request.driving_license_no %}
+<div class="outer-box">
+    <div class="inner-box">
+        <label for="driving_lic">Driving license</label>
+    </div>
+    <div class="inner-box">
+        <span id="driving_lic">{{consumer_request.driving_license_no}}</span>
+    </div>
+</div>
+{% endif %}
+<div class="outer-box odd">
+    <div class="inner-box">
+        <label for="address">Address</label>
+    </div>
+    <div class="inner-box">
+        <span id="address">{{consumer_request.address}}</span>
+    </div>
+</div>
+<div class="outer-box">
+    <div class="inner-box">
+        <label for="state">State</label>
+    </div>
+    <div class="inner-box">
+        <span id="state">{{consumer_request.state}}</span>
+    </div>
+</div>
+<div class="outer-box odd">
+    <div class="inner-box">
+        <label for="pin">Pin code</label>
+    </div>
+    <div class="inner-box">
+        <span id="pin">{{consumer_request.pin_code}}</span>
+    </div>
+</div>
+<div class="outer-box">
+    <div class="inner-box">
+        <label for="request-time">Request date</label>
+    </div>
+    <div class="inner-box">
+        <span id="request-time">{{consumer_request.request_date.strftime('%d/%m/%Y')}}</span>
+    </div>
+</div>

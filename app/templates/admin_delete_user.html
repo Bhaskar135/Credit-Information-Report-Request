@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}
+Delete User
+{% endblock %}
+
+{% block admin_body_content %}
+<div class="container container-box mt-3 p-4">
+    <form method="POST">
+        {{form.hidden_tag()}}
+        <div class="row">
+            <div class="col-md-12 col-12 ml-4">
+                <h4 class="delete-user-heading">Do you really want to delete the user {{username}} ?</h4>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12 col-12 ml-4">
+                {% for yes_no in form.yes_no %}
+                    {{yes_no}}
+                    {{yes_no.label}}
+                {% endfor %} 
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12 col-12 ml-4">
+                {{form.submit(class="btn btn-info")}}
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

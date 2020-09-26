@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% set active_page="requests" %}
+{% import "pagination.html" as macros %}
+
+{% block title %}
+Consumer Requests
+{% endblock %}
+
+{% block admin_body_content %}
+<form method="GET">
+    <div class="container mt-3 pl-4 pr-4 pb-4 container-box">
+        <div class="row pt-3">
+            <div class="col-md-3 col-12">
+                {{form.search_username.label}}
+                <div>{{form.search_username(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12">
+                {{form.search_name.label}}
+                <div>{{form.search_name(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12">
+                {{form.from_date.label}}
+                <div>{{form.from_date(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12">
+                {{form.to_date.label}}
+                <div>{{form.to_date(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+            <div class="col-md-3 col-12 mb-3">
+                {{form.status.label}}
+                <div>{{form.status(class="form-control form-control-sm mb-1")}}</div>
+            </div>
+        </div>
+        {{form.submit(class="btn btn-info col-md-1 col-12")}}
+        <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <div class="feedback">{{message}}</div>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</form>
+<div class="container mt-4 mb-4 pb-2 container-box">
+    <div class="row">
+        <div class="col-md-12 col-12 ml-2 mr-2">
+            <h4 class="heading mt-3">Consumer requests</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover mb-4" style="font-size: medium; text-align: center;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sl No.</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Pan No.</th>
+                            <th scope="col">Requested date</th>
+                            <th scope="col">Loan amount</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                    </thead>
+                    {% if consumer_req %}
+                    <tbody>
+                        {% for request in consumer_req %}
+                        {% if loop.index%2==0 %}
+                        <tr class="tr-even">
+                            <td scope="row">{{loop.index}}</td>
+                            <td>{{request.name}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.loan_amount}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a
+                                    href="{{url_for('main.user_consumer_request_detail',username=request.user.username, request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td scope="row">{{loop.index}}</td>
+                            <td>{{request.name}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.loan_amount}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a
+                                    href="{{url_for('main.user_consumer_request_detail',username=request.user.username, request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tbody>
+                        {% for request in consumer_requests %}
+                        {% if loop.index%2==0 %}
+                        <tr class="tr-even">
+                            <td scope="row">{{((page*15)-15)+loop.index}}</td>
+                            <td>{{request.name}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.loan_amount}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a
+                                    href="{{url_for('main.user_consumer_request_detail',username=request.user.username, request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td scope="row">{{((page*15)-15)+loop.index}}</td>
+                            <td>{{request.name}}</td>
+                            <td>{{request.pan_no}}</td>
+                            <td>{{request.request_date.strftime('%d/%m/%Y')}}</td>
+                            <td>{{request.loan_amount}}</td>
+                            <td>{{request.status}}</td>
+                            <td><a
+                                    href="{{url_for('main.user_consumer_request_detail',username=request.user.username, request_id=request.id)}}">Click
+                                    here</a></td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                    {% endif %}
+                </table>
+            </div>
+            {% if consumer_req %}
+            {% else %}
+            <div class="pagination-bar mt-4">
+                {{ macros.pagination_widget(pagination, 'main.all_users_consumer_requests') }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% set active_page="admin-consumer-form" %}
+{% block title %}
+    Consumer Form
+{% endblock %}
+{% block admin_body_content %}
+    {% if current_user.is_authenticated %}
+        {% if current_user.can(Permission.WRITE) and current_user.can(Permission.ADMIN)%}
+        <div class="container p-4 container-box mt-3 mb-4">
+        <h4 class="heading">Consumer Form</h4>
+        <hr>
+        <form method="POST">
+            {{form.hidden_tag()}}
+            <div class="form-group row">
+                {{form.loan.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.loan(class="form-control")}}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{form.purpose.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.purpose(class="form-control")}}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{form.name.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.name(class="form-control name-checking")}}
+                </div>
+                <div class="row feedback col-md-2 col-12 con-req-name-fdbck">
+                </div>
+            </div>
+            <div class="form-group row">
+                {{form.gender.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {% for gender in form.gender %}
+                        {{gender}}
+                        {{gender.label}}
+                    {% endfor %}    
+                </div>
+            </div>
+            <div class="form-group row">
+                {{form.dob.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.dob(class="form-control")}}
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                {{form.pan.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.pan(class="form-control con-req-pan")}}
+                </div>
+                <div class="row feedback col-md-2 col-12 con-req-pan-fdbck"></div>
+            </div>
+            <div class="form-group row">
+                {{form.aadhaar.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.aadhaar(class="form-control con-req-aadhaar")}}
+                </div>
+                <div class="row feedback col-md-2 col-12 con-req-aadhaar-fdbck">
+                </div>
+            </div>
+            <div class="form-group row">
+                {{form.voter_id.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.voter_id(class="form-control con-req-voter")}}
+                </div>
+                <div class="row feedback col-md-2 col-12 con-req-voter-fdbck">
+                </div>
+            </div>
+            <div class="form-group row">
+                {{form.passport.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.passport(class="form-control con-req-passport")}}
+                </div>
+                <div class="row feedback col-md-2 col-12 con-req-passport-fdbck">
+                </div>
+            </div>
+            <div class="form-group row">
+                {{form.driving_lic.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.driving_lic(class="form-control con-req-driving")}}
+                </div>
+                <div class="row feedback col-md-2 col-12 con-req-driving-fdbck">
+                </div>
+            </div>
+            <div class="form-group row">
+                {{form.address.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.address(class="form-control address-checking")}}
+                </div>
+                <div class="row feedback col-md-2 col-12 con-req-address-fdbck">
+                </div>
+            </div>
+            <div class="form-group row">
+                {{form.state.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.state(class="form-control")}}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{form.pin.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.pin(class="form-control con-req-pin")}}
+                </div>
+                <div class="row feedback col-md-2 col-12 con-req-pin-fdbck">
+                </div>
+            </div>
+            <div class="form-group row ,b-3">
+                {{form.address_category.label(class="col-md-2 col-12 col-form-label")}}
+                <div class="col-12 col-md-8">
+                    {{form.address_category(class="form-control con-req-pin")}}
+                </div>
+            </div>
+            {{form.submit(class="btn btn-info col-md-1 col-12 mb-3")}}
+            
+        </form>  
+        </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
+
+
+

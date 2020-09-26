@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <title>
+        {% block title %}
+        Base template
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body class="body">
+
+    {% if current_user.is_authenticated %}
+    {% if current_user.is_administrator() %}
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="" style="color:rgb(0, 17, 204);"><i>NEDFi-CIRR</i></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ 'active' if active_page=='user' else ''}}">
+                    <a class="nav-link" href="{{url_for('main.admin_home')}}">Users</a>
+                </li>
+                <li class="nav-item dropdown {{ 'active' if active_page=='requests' else ''}}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Requests
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{url_for('main.all_users_consumer_requests')}}">Consumer
+                            Requests</a>
+                        <a class="dropdown-item" href="{{url_for('main.all_users_commercial_requests')}}">Commercial
+                            Requests</a>
+                    </div>
+                </li>
+                <li class="nav-item {{ 'active' if active_page=='admin-consumer-form' else ''}}">
+                    <a class="nav-link" href="{{ url_for('main.admin_consumer_form') }}">Consumer Form</a>
+                </li>
+                <li class="nav-item {{ 'active' if active_page=='admin-commercial-form' else ''}}">
+                    <a class="nav-link" href="{{ url_for('main.admin_commercial_form') }}">Commercial Form</a>
+                </li>
+                <li class="nav-item dropdown {{ 'active' if active_page=='profile' else ''}}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Profile
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url_for('main.admin_profile') }}">Your profile</a>
+                        <a class="dropdown-item" href="{{ url_for('main.admin_reset_password') }}">Change
+                            password</a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" data-toggle="modal"
+                            data-target=".bd-example-modal-2">Logout</button>
+                    </div>
+                    <div class="modal fade bd-example-modal-2" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h6 class="">Do you want to logout?</h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{{ url_for('auth.logout') }}" class="btn btn-primary">Yes</a>
+                                    <button type="button" class="btn btn-primary modalNo"
+                                        data-dismiss="modal">No</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% block admin_body_content %}
+    {% endblock %}
+    {% elif current_user.role_id == 2 %}
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="" style="color:rgb(0, 17, 204);"><i>NEDFi-CIRR</i></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ 'active' if active_page=='report_admin_home' else ''}}" >
+                    <a class="nav-link" href="{{url_for('main.report_admin_home')}}">Home</a>
+                </li>
+                <li class="nav-item dropdown {{ 'active' if active_page=='report_admin_home' else ''}}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Request History
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{url_for('main.report_admin_home')}}">Consumer Requests</a>
+                        <a class="dropdown-item" href="{{url_for('main.report_admin_commercial_requests')}}">Commercial
+                            Requests</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown {{ 'active' if active_page=='report_admin_profile' else ''}}">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Profile
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"
+                            href="{{url_for('main.report_admin_profile', username=current_user.username)}}">Your
+                            profile</a>
+                        <a class="dropdown-item" href="{{url_for('main.report_admin_reset_password')}}">Change
+                            password</a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" data-toggle="modal"
+                            data-target=".bd-example-modal-2">Logout</button>
+                    </div>
+                    <div class="modal fade bd-example-modal-2" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h6 class="deleteUserText2">Do you want to logout?</h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{{ url_for('auth.logout') }}" class="btn btn-primary">Yes</a>
+                                    <button type="button" class="btn btn-primary modalNo"
+                                        data-dismiss="modal">No</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% block report_admin_body_content %}
+    {% endblock %}
+    {% else %}
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="" style="color:rgb(0, 17, 204);"><i>NEDFi-CIRR</i></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ 'active' if active_page=='user-home' else '' }}">
+                    <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
+                </li>
+                <li class="nav-item dropdown {{ 'active' if active_page=='user-requests' else ''}}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Request History
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{url_for('main.home')}}">Consumer Requests</a>
+                        <a class="dropdown-item" href="{{url_for('main.commercial_requests')}}">Commercial
+                            Requests</a>
+                    </div>
+                </li>
+                <li class="nav-item {{ 'active' if active_page=='user-consumer-form' else '' }}">
+                    <a class="nav-link"
+                        href="{{ url_for('main.consumer_form',username=current_user.username) }}">Consumer Form</a>
+                </li>
+                <li class="nav-item {{ 'active' if active_page=='user-commercial-form' else '' }}">
+                    <a class="nav-link"
+                        href="{{ url_for('main.commercial_form',username=current_user.username) }}">Commercial
+                        Form</a>
+                </li>
+                <li class="nav-item dropdown {{ 'active' if active_page=='user-profile' else '' }}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Profile
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url_for('main.user', username=current_user.username) }}">Your
+                            profile</a>
+                        <a class="dropdown-item"
+                            href="{{ url_for('main.user_reset_password', username=current_user.username) }}">Change
+                            password</a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" data-toggle="modal"
+                            data-target=".bd-example-modal-2">Logout</button>
+                    </div>
+                    <div class="modal fade bd-example-modal-2" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h6 class="deleteUserText2">Do you want to logout?</h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{{ url_for('auth.logout') }}" class="btn btn-primary">Yes</a>
+                                    <button type="button" class="btn btn-primary modalNo"
+                                        data-dismiss="modal">No</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% block user_body_content %}
+    {% endblock %}
+    {%endif%}
+    {% else %}
+    {% block authentication %}
+    {% endblock %}
+    {% endif %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{{ url_for('static',filename='scripts/script.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% import "pagination.html" as macros %}
+
+{% block title %}
+User Profile
+{% endblock %}
+
+{% block admin_body_content %}
+<div class="container mt-4 p-4 container-box">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <div class="feedback">
+            {{message}}
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <form method="POST">
+        {{form.hidden_tag()}}
+        <div class="row">
+            <div class="col-md-2 col-12">
+                {{form.name.label}}
+            </div>
+            <div class="col-md-10 col-12">
+                {{form.name(class="form-control")}}
+            </div>
+            <div class="col-md-2 col-12">
+                {{form.username.label}}
+            </div>
+            <div class="col-md-10 col-12">
+                {{form.username(class="form-control")}}
+            </div>
+            <div class="col-md-2 col-12">
+                {{form.email.label}}
+            </div>
+            <div class="col-md-10 col-12">
+                {{form.email(class="form-control")}}
+            </div>
+            <div class="col-md-2 col-12">
+                {{form.role.label}}
+            </div>
+            <div class="col-md-10 col-12">
+                {% for role in form.role %}
+                {{role}}
+                {{role.label}}
+                {% endfor %}
+            </div>
+            <div class="col-md-2 col-12">
+                {{form.location.label}}
+            </div>
+            <div class="col-md-10 col-12">
+                {{form.location(class="form-control")}}
+            </div>
+        </div>
+        {{form.submit(class="btn btn-info col-md-1 col-12 mb-3 mt-3")}}
+        <a class="btn btn-danger col-md-1 col-12" href="{{url_for('main.delete_user',username=username)}}">Delete</a>
+        </div>
+    </form>
+
+<div class="container mt-4 mb-3">
+    <div class="col-md-12 col-12">
+        <a href="{{ url_for('main.admin_user_consumer_request',username=username) }}">Consumer Requests of
+            {{username}}</a>
+    </div>
+    <div class="col-md-12 col-12">
+        <a href="{{ url_for('main.admin_user_commercial_request',username=username) }}">Commercial Requests of
+            {{username}}</a>
+    </div>
+</div>
+</div>
+{% endblock %}

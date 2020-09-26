@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+{% block report_admin_body_content %}
+    <div class="container mt-4 p-4 container-box">
+        <div class="row mb-4">
+            <div class="col-md-12 col-12">
+                <h4 class="heading">Update your profile</h4>
+            </div>
+        </div>
+        <form method="POST">
+            {{form.hidden_tag()}}
+            <div class="row">
+                <div class="col-md-2 col-12">
+                    {{form.name.label}}
+                </div>
+                <div class="col-md-10 col-12">
+                    {{form.name(class="form-control")}}
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-2 col-12">
+                    {{form.location.label}}
+                </div>
+                <div class="col-md-10 col-12">
+                    {{form.location(class="form-control")}}
+                </div>
+            </div>
+            {{form.submit(class="btn btn-info col-md-1 col-12")}}
+                
+        </form>
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,46 @@
+/* colors */
+.body{
+    background-color: rgb(250, 250, 250);
+}
+.navbar{
+    border-bottom:1px solid rgb(184, 184, 184);
+    background-color: rgb(255, 255, 255);
+}
+.nav-link{
+    color:white;
+}
+.nav-link:hover{
+    color:rgb(238, 209, 209);
+}
+/* .profile-content{
+    background-color:rgb(238, 238, 238);
+} */
+.delete-user-heading{
+    color:rgb(104, 104, 104);
+}
+thead{
+    background-color:rgb(241, 241, 241);
+    color:rgb(34, 18, 18);
+}
+.feedback{
+    color:rgb(255, 0, 0);
+}
+.auth-heading{
+    color:rgb(29, 126, 16);
+}
+.auth-box{
+    background-color:rgb(255, 255, 255);
+}
+
+.feedback-success{
+    color:green;
+}
+.container-box{
+    background-color: rgb(255, 255, 255);
+    border:1px solid rgb(184, 184, 184);
+}
+.tr-even{
+    background-color:rgb(241, 241, 241);
+}
+
+
